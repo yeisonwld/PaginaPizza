@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar Pizza</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .contenedor { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .opcion { border: 1px solid #ccc; border-radius: 10px; padding: 20px; width: 200px; transition: 0.3s; }
+        .opcion:hover { transform: scale(1.05); border-color: #007bff; }
+        img { width: 150px; height: 150px; object-fit: contain; }
+        button { margin-top: 30px; padding: 10px 25px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Selecciona una Pizza</h1>
+
+    <form action="/resultado" method="post">
+        <div class="contenedor">
+            <div class="opcion" th:each="opcion : ${opciones}">
+                <img th:src="${opcion.imagen}" th:alt="${opcion.nombre}">
+                <h3 th:text="${opcion.nombre}"></h3>
+                <p th:text="'Precio: $' + ${opcion.precio}"></p>
+                <input type="radio" name="opcionSeleccionada" th:value="${opcion.id}">
+            </div>
+        </div>
+
+        <button type="submit">Confirmar selección</button>
+    </form>
+</body>
+</html>

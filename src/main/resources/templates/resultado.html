@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        img { 
+            width: 200px; 
+            height: 200px; 
+            margin-top: 20px; 
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .cantidad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .btn-cantidad {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-cantidad:hover {
+            background-color: #0056b3;
+        }
+        .btn-cantidad:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .cantidad-display {
+            font-size: 24px;
+            font-weight: bold;
+            min-width: 50px;
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .total-container {
+            background-color: #f8f9fa;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .total-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .total-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .precio-unitario {
+            color: #666;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        a { 
+            display: inline-block; 
+            margin-top: 30px; 
+            padding: 12px 30px; 
+            background-color: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Has seleccionado:</h1>
+
+    <div th:if="${seleccionada != null}">
+        <h2 th:text="${seleccionada.nombre}"></h2>
+        <img th:src="${seleccionada.imagen}" th:alt="${seleccionada.nombre}">
+        
+        <div class="precio-unitario">
+            Precio unitario: $<span id="precio-unitario" th:text="${seleccionada.precio}"></span>
+        </div>
+        
+        <div class="cantidad-container">
+            <button class="btn-cantidad" id="btn-menos" onclick="cambiarCantidad(-1)">-</button>
+            <div class="cantidad-display" id="cantidad">1</div>
+            <button class="btn-cantidad" id="btn-mas" onclick="cambiarCantidad(1)">+</button>
+        </div>
+        
+        <div class="total-container">
+            <div class="total-label">Total de la cuenta:</div>
+            <div class="total-amount">$<span id="total"></span></div>
+        </div>
+    </div>
+
+    <div th:if="${seleccionada == null}">
+        <p>No se encontró la opción seleccionada.</p>
+    </div>
+
+    <a href="/">Volver</a>
+
+    <script th:if="${seleccionada != null}">
+        // Variables globales
+        const precioUnitario = parseFloat(document.getElementById('precio-unitario').textContent);
+        let cantidad = 1;
+        
+        // Función para cambiar la cantidad
+        function cambiarCantidad(cambio) {
+            const nuevaCantidad = cantidad + cambio;
+            
+            // Validar que la cantidad no sea menor a 1
+            if (nuevaCantidad >= 1) {
+                cantidad = nuevaCantidad;
+                actualizarInterfaz();
+            }
+        }
+        
+        // Función para actualizar la interfaz
+        function actualizarInterfaz() {
+            // Actualizar cantidad mostrada
+            document.getElementById('cantidad').textContent = cantidad;
+            
+            // Calcular y mostrar total
+            const total = precioUnitario * cantidad;
+            document.getElementById('total').textContent = total.toLocaleString('es-CO');
+            
+            // Deshabilitar botón menos si cantidad es 1
+            document.getElementById('btn-menos').disabled = cantidad <= 1;
+        }
+        
+        // Inicializar la interfaz
+        actualizarInterfaz();
+    </script>
+</body>
+</html>
