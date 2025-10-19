@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios Registrados</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f5f5f5; }
+        h1 { color: #333; background-color: #4CAF50; color: white; padding: 20px; border-radius: 10px; }
+        .info { background-color: #fff3cd; padding: 15px; margin: 20px auto; max-width: 800px; border-radius: 8px; border: 2px solid #ffc107; }
+        .contador { font-size: 24px; margin: 20px; padding: 15px; background-color: #2196F3; color: white; border-radius: 8px; }
+        table { margin: 20px auto; border-collapse: collapse; width: 90%; background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        th { background-color: #333; color: white; padding: 15px; }
+        td { padding: 12px; border: 1px solid #ddd; }
+        tr:hover { background-color: #f1f1f1; }
+        a { display: inline-block; margin: 20px 10px; padding: 12px 25px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; }
+        a:hover { background-color: #45a049; }
+        .vacia { padding: 50px; color: #999; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>📋 USUARIOS REGISTRADOS</h1>
+    
+    <div class="info">
+        💡 <strong>Esta lista empieza VACÍA</strong> y se va llenando cada vez que alguien se registra usando el formulario.
+        <br>Los datos se guardan en <strong>OpcionRepository</strong>
+    </div>
+
+    <div class="contador">
+        Total de usuarios registrados: <strong th:text="${total}"></strong>
+    </div>
+
+    <div th:if="${total == 0}" class="vacia">
+        📭 No hay usuarios registrados aún. ¡Sé el primero en registrarte!
+    </div>
+
+    <table th:if="${total > 0}">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Contraseña</th>
+        </tr>
+        <tr th:each="usuario, iterStat : ${usuarios}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${usuario['nombre']}"></td>
+            <td th:text="${usuario['apellidos']}"></td>
+            <td th:text="${usuario['email']}"></td>
+            <td th:text="${usuario['telefono']}"></td>
+            <td th:text="${usuario['direccion']}"></td>
+            <td th:text="${usuario['password']}"></td>
+        </tr>
+    </table>
+
+    <a href="/">🏠 Volver al Inicio</a>
+    <a href="/registro">➕ Registrar Usuario</a>
+</body>
+</html>

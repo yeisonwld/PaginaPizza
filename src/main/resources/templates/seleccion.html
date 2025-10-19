@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCT<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -15,17 +15,28 @@
 <body>
     <h1>Selecciona una Pizza</h1>
 
-    <form action="/resultado" method="post">
+    <div style="margin: 20px 0; display: flex; justify-content: center; gap: 15px;">
+        <a th:href="@{/registro}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+            Registrarse
+        </a>
+        <a th:href="@{/login}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+            Iniciar Sesión
+        </a>
+    </div>
+
+    <!-- CAMBIAR action a /hacer-pedido -->
+    <form action="/hacer-pedido" method="post">
         <div class="contenedor">
             <div class="opcion" th:each="opcion : ${opciones}">
                 <img th:src="${opcion.imagen}" th:alt="${opcion.nombre}">
                 <h3 th:text="${opcion.nombre}"></h3>
                 <p th:text="'Precio: $' + ${opcion.precio}"></p>
-                <input type="radio" name="opcionSeleccionada" th:value="${opcion.id}">
+                <input type="radio" name="opcionSeleccionada" th:value="${opcion.id}" required>
             </div>
         </div>
 
-        <button type="submit">Confirmar selección</button>
+        <!-- CAMBIAR el texto del botón -->
+        <button type="submit">Hacer Pedido</button>
     </form>
 </body>
 </html>
