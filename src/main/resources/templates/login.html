@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Iniciar Sesión - Pizzería</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style/login.css}">
 </head>
 <body class="bg-light">
     <div class="container py-5">
@@ -36,11 +37,92 @@
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Iniciar Sesión</button>
                             </div>
+                        </form>
+                        
+                        <div class="text-center mt-3">
+                            <p>¿No tienes cuenta? <a th:href="@{/registro}" class="text-decoration-none">Regístrate aquí</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer Informativo -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Información del Restaurante -->
+            <div class="footer-section">
+                <h3>🍕 Pizza Sayayina</h3>
+                <p>Desde 1995, ofrecemos las mejores pizzas artesanales de la ciudad con ingredientes frescos y recetas tradicionales que han pasado de generación en generación.</p>
+                <p><strong>Especialidades:</strong></p>
+                <ul>
+                    <li>• Pizzas artesanales</li>
+                    <li>• Masa fresca diaria</li>
+                    <li>• Ingredientes premium</li>
+                    <li>• Recetas familiares</li>
+                </ul>
+            </div>
+
+            <!-- Información de Contacto -->
+            <div class="footer-section">
+                <h3>📞 Contacto</h3>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <p>Calle 45 #23-67, Barrio La Candelaria<br>Bogotá, Colombia</p>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <p>+57 (1) 234-5678</p>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <p>+57 300 123 4567</p>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <p><a href="mailto:info@pizzasayayina.com">info@pizzasayayina.com</a></p>
+                </div>
+            </div>
+
+            <!-- Horarios de Atención -->
+            <div class="footer-section">
+                <h3>🕒 Horarios</h3>
+                <ul>
+                    <li><strong>Lunes - Jueves:</strong><br>11:00 AM - 10:00 PM</li>
+                    <li><strong>Viernes - Sábado:</strong><br>11:00 AM - 11:00 PM</li>
+                    <li><strong>Domingo:</strong><br>12:00 PM - 9:00 PM</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>🚚 Domicilios:</strong></p>
+                <p>Disponibles en toda la ciudad<br>Tiempo estimado: 30-45 min</p>
+            </div>
+
+            <!-- Redes Sociales y Enlaces -->
+            <div class="footer-section">
+                <h3>🌐 Síguenos</h3>
+                <p>Mantente conectado con nosotros y no te pierdas nuestras promociones especiales:</p>
+                <div class="social-links">
+                    <a href="https://facebook.com/pizzasayayina" title="Facebook">📘</a>
+                    <a href="https://instagram.com/pizzasayayina" title="Instagram">📷</a>
+                    <a href="https://twitter.com/pizzasayayina" title="Twitter">🐦</a>
+                    <a href="https://whatsapp.com/pizzasayayina" title="WhatsApp">💬</a>
+                </div>
+                <p style="margin-top: 15px;"><strong>📧 Newsletter:</strong></p>
+                <p>Suscríbete para recibir ofertas exclusivas</p>
+                <a href="mailto:promociones@pizzasayayina.com" style="background-color: #e74c3c; padding: 8px 15px; border-radius: 5px; display: inline-block; margin-top: 5px;">Suscribirse</a>
+            </div>
+        </div>
+
+        <!-- Pie del Footer -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Pizza Sayayina. Todos los derechos reservados.</p>
+            <p>Desarrollado con ❤️ para los amantes de la pizza | 
+               <a href="#politicas">Políticas de Privacidad</a> | 
+               <a href="#terminos">Términos y Condiciones</a>
+            </p>
+        </div>
+    </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -17,10 +17,17 @@ public class OpcionRepository {
     private List<Map<String, String>> usuariosRegistrados = new ArrayList<>();
 
     public OpcionRepository() {
-        // Solo pizzas al inicio
-        opciones.add(new Opcion(1L, "Pizza pequeña", 10000, "/img/basico.png"));
-        opciones.add(new Opcion(2L, "Pizza mediana", 20000, "/img/intermedio.png"));
-        opciones.add(new Opcion(3L, "Pizza grande", 30000, "/img/premium.png"));
+        // 10 pizzas precargadas con precios por tamaño
+        opciones.add(new Opcion(1L, "Hawaiana", 18000, 26000, 32000, "/img/hawaiana.png"));
+        opciones.add(new Opcion(2L, "Mexicana", 20000, 28000, 35000, "/img/mexicana.png"));
+        opciones.add(new Opcion(3L, "Napolitana", 17000, 25000, 31000, "/img/napolitana.png"));
+        opciones.add(new Opcion(4L, "Vegetariana", 19000, 27000, 34000, "/img/vegetariana.png"));
+        opciones.add(new Opcion(5L, "Cuatro quesos", 21000, 30000, 37000, "/img/cuatro_quesos.png"));
+        opciones.add(new Opcion(6L, "Pollo y champiñón", 20000, 29000, 36000, "/img/pollo_champinon.png"));
+        opciones.add(new Opcion(7L, "Jamón y queso", 18000, 26000, 32000, "/img/jamon_queso.png"));
+        opciones.add(new Opcion(8L, "Peperoni", 19000, 27000, 34000, "/img/peperoni.png"));
+        opciones.add(new Opcion(9L, "Mar y tierra", 23000, 32000, 40000, "/img/mar_tierra.png"));
+        opciones.add(new Opcion(10L, "BBQ especial", 22000, 31000, 39000, "/img/bbq_especial.png"));
         
         // Lista de usuarios empieza VACÍA (se llena con el formulario)
     }

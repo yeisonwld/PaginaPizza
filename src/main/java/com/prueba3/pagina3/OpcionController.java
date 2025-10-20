@@ -10,62 +10,91 @@ import jakarta.servlet.http.HttpSession;
 public class OpcionController {
 
     private final OpcionService opcionService;
+    private final CarritoService carritoService;
 
-    public OpcionController(OpcionService opcionService) {
+    public OpcionController(OpcionService opcionService, CarritoService carritoService) {
         this.opcionService = opcionService;
+        this.carritoService = carritoService;
     }
 
     @GetMapping("/")
     public String mostrarOpciones(Model model) {
         model.addAttribute("opciones", opcionService.listarOpciones());
+        model.addAttribute("cantidadCarrito", carritoService.obtenerCantidadItems());
         return "seleccion";
     }
 
-    @PostMapping("/resultado")
-    public String mostrarResultado(@RequestParam("opcionSeleccionada") Long id, Model model) {
-        Opcion seleccionada = opcionService.obtenerPorId(id);
-        model.addAttribute("seleccionada", seleccionada);
-        return "resultado";
-    }
-
-    @PostMapping("/hacer-pedido")
-    public String hacerPedido(@RequestParam("opcionSeleccionada") Long id, 
-                              HttpSession session,
-                              RedirectAttributes redirectAttributes) {
+    @PostMapping("/agregar")
+    public String agregarAlCarrito(@RequestParam("opcionId") Long opcionId,
+                                   @RequestParam("tamano") String tamano,
+                                   @RequestParam("cantidad") int cantidad,
+                                   RedirectAttributes redirectAttributes) {
         
-        String emailUsuario = (String) session.getAttribute("usuarioEmail");
-        
-        if (emailUsuario == null) {
-            session.setAttribute("pizzaSeleccionada", id);
-            redirectAttributes.addFlashAttribute("mensaje", "Por favor inicia sesión para continuar con tu pedido");
-            return "redirect:/login";
+        Opcion opcion = opcionService.obtenerPorId(opcionId);
+        if (opcion != null && cantidad > 0) {
+            carritoService.agregarItem(opcion, tamano, cantidad);
+            redirectAttributes.addFlashAttribute("mensaje", "Pizza agregada al carrito exitosamente");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Error al agregar la pizza al carrito");
         }
         
-        session.setAttribute("pizzaSeleccionada", id);
-        return "redirect:/carrito";
+        return "redirect:/";
     }
     
     @GetMapping("/carrito")
-    public String mostrarCarrito(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+    public String mostrarCarrito(Model model) {
+        model.addAttribute("itemsCarrito", carritoService.obtenerItems());
+        model.addAttribute("totalCarrito", carritoService.calcularTotal());
+        model.addAttribute("cantidadItems", carritoService.obtenerCantidadItems());
+        model.addAttribute("carritoVacio", carritoService.estaVacio());
+        return "carrito";
+    }
+
+    @PostMapping("/carrito/eliminar")
+    public String eliminarDelCarrito(@RequestParam("itemId") Long itemId,
+                                     RedirectAttributes redirectAttributes) {
         
-        String emailUsuario = (String) session.getAttribute("usuarioEmail");
-        if (emailUsuario == null) {
-            redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión primero");
+        if (carritoService.eliminarItem(itemId)) {
+            redirectAttributes.addFlashAttribute("mensaje", "Item eliminado del carrito");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el item");
+        }
+        
+        return "redirect:/carrito";
+    }
+
+    @PostMapping("/carrito/vaciar")
+    public String vaciarCarrito(RedirectAttributes redirectAttributes) {
+        carritoService.vaciarCarrito();
+        redirectAttributes.addFlashAttribute("mensaje", "Carrito vaciado exitosamente");
+        return "redirect:/carrito";
+    }
+
+    @PostMapping("/confirmar")
+    public String confirmarPedido(Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+        // Verificar si el usuario está autenticado
+        String usuarioEmail = (String) session.getAttribute("usuarioEmail");
+        if (usuarioEmail == null) {
+            redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para confirmar tu pedido");
+            redirectAttributes.addFlashAttribute("redirectAfterLogin", "/carrito");
             return "redirect:/login";
         }
         
-        Long pizzaId = (Long) session.getAttribute("pizzaSeleccionada");
-        if (pizzaId == null) {
-            redirectAttributes.addFlashAttribute("error", "No hay ninguna pizza seleccionada");
-            return "redirect:/";
+        if (carritoService.estaVacio()) {
+            redirectAttributes.addFlashAttribute("error", "No hay items en el carrito para confirmar");
+            return "redirect:/carrito";
         }
         
-        Opcion pizzaSeleccionada = opcionService.obtenerPorId(pizzaId);
+        // Preparar datos para la vista de confirmación
+        model.addAttribute("itemsPedido", carritoService.obtenerItems());
+        model.addAttribute("totalPedido", carritoService.calcularTotal());
+        model.addAttribute("cantidadItems", carritoService.obtenerCantidadItems());
+        model.addAttribute("usuarioEmail", usuarioEmail);
         
-        model.addAttribute("pizza", pizzaSeleccionada);
-        model.addAttribute("usuarioEmail", emailUsuario);
+        // Vaciar carrito después de confirmar
+        carritoService.vaciarCarrito();
         
-        return "carrito";
+        return "resultado";
     }
 
     
@@ -119,7 +148,8 @@ public class OpcionController {
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             HttpSession session,
-            Model model) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
         
         if (email.isEmpty() || password.isEmpty()) {
             model.addAttribute("error", "Por favor completa todos los campos");
@@ -138,14 +168,21 @@ public class OpcionController {
         session.setAttribute("usuarioEmail", email);
         session.setAttribute("usuarioNombre", usuario.get("nombre"));
         
+        // Verificar si hay una redirección pendiente
+        String redirectAfterLogin = (String) redirectAttributes.getFlashAttributes().get("redirectAfterLogin");
+        if (redirectAfterLogin != null) {
+            return "redirect:" + redirectAfterLogin;
+        }
+        
         // Si había pizza seleccionada, ir al carrito
         Long pizzaId = (Long) session.getAttribute("pizzaSeleccionada");
         if (pizzaId != null) {
             return "redirect:/carrito";
         }
         
-        model.addAttribute("mensaje", "¡Bienvenido " + usuario.get("nombre") + "!");
-        return "login";
+        // Por defecto, redirigir a la página principal
+        redirectAttributes.addFlashAttribute("mensaje", "¡Bienvenido " + usuario.get("nombre") + "!");
+        return "redirect:/";
     }
     
     

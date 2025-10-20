@@ -4,15 +4,19 @@ package com.prueba3.pagina3;
 public class Opcion {
     private Long id;
     private String nombre;
-    private double precio;
+    private double precioPequena;
+    private double precioMediana;
+    private double precioGrande;
     private String imagen;
 
     public Opcion() {}
 
-    public Opcion(Long id, String nombre, double precio, String imagen) {
+    public Opcion(Long id, String nombre, double precioPequena, double precioMediana, double precioGrande, String imagen) {
         this.id = id;
         this.nombre = nombre;
-        this.precio = precio;
+        this.precioPequena = precioPequena;
+        this.precioMediana = precioMediana;
+        this.precioGrande = precioGrande;
         this.imagen = imagen;
     }
 
@@ -22,9 +26,30 @@ public class Opcion {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public double getPrecioPequena() { return precioPequena; }
+    public void setPrecioPequena(double precioPequena) { this.precioPequena = precioPequena; }
+
+    public double getPrecioMediana() { return precioMediana; }
+    public void setPrecioMediana(double precioMediana) { this.precioMediana = precioMediana; }
+
+    public double getPrecioGrande() { return precioGrande; }
+    public void setPrecioGrande(double precioGrande) { this.precioGrande = precioGrande; }
 
     public String getImagen() { return imagen; }
     public void setImagen(String imagen) { this.imagen = imagen; }
+
+    // Método auxiliar para obtener precio por tamaño
+    public double getPrecioPorTamano(String tamano) {
+        switch (tamano.toLowerCase()) {
+            case "pequena":
+            case "pequeña":
+                return precioPequena;
+            case "mediana":
+                return precioMediana;
+            case "grande":
+                return precioGrande;
+            default:
+                return precioPequena;
+        }
+    }
 }
