@@ -25,7 +25,7 @@ public class OpcionController {
     }
 
     @PostMapping("/agregar")
-    public String agregarAlCarrito(@RequestParam Long opcionId, String tamano, int cantidad, RedirectAttributes redirectAttributes) {
+    public String agregarAlCarrito(@RequestParam Long opcionId, @RequestParam String tamano, @RequestParam int cantidad, RedirectAttributes redirectAttributes) {
         Opcion opcion = opcionService.obtenerPorId(opcionId);
         if (opcion != null && cantidad > 0) {
             carritoService.agregarItem(opcion, tamano, cantidad);
