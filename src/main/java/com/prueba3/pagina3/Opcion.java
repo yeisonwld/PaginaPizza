@@ -4,6 +4,7 @@ package com.prueba3.pagina3;
 public class Opcion {
     private Long id;
     private String nombre;
+    private String descripcion;
     private double precioPequena;
     private double precioMediana;
     private double precioGrande;
@@ -11,9 +12,10 @@ public class Opcion {
 
     public Opcion() {}
 
-    public Opcion(Long id, String nombre, double precioPequena, double precioMediana, double precioGrande, String imagen) {
+    public Opcion(Long id, String nombre, String descripcion, double precioPequena, double precioMediana, double precioGrande, String imagen) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.precioPequena = precioPequena;
         this.precioMediana = precioMediana;
         this.precioGrande = precioGrande;
@@ -25,6 +27,9 @@ public class Opcion {
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     public double getPrecioPequena() { return precioPequena; }
     public void setPrecioPequena(double precioPequena) { this.precioPequena = precioPequena; }

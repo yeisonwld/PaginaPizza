@@ -52,6 +52,15 @@ img {
     border-radius: 8px; 
 }
 
+.descripcion {
+    color: #666;
+    font-style: italic;
+    margin: 10px 0;
+    line-height: 1.4;
+    text-align: center;
+    font-size: 14px;
+}
+
 .precios {
     margin: 15px 0;
     text-align: left;

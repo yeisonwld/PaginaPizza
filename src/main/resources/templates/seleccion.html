@@ -26,17 +26,20 @@
             
             <h3 th:text="${opcion.nombre}"></h3>
             
+            <!-- Descripción de la pizza -->
+            <p class="descripcion" th:text="${opcion.descripcion}"></p>
+            
             <div class="precios">
                 <div class="precio-item">
-                    <span>Pequeña:</span>
+                    <span>Pequeña (4 porciones):</span>
                     <strong th:text="'$' + ${#numbers.formatInteger(opcion.precioPequena, 0, 'COMMA')}"></strong>
                 </div>
                 <div class="precio-item">
-                    <span>Mediana:</span>
+                    <span>Mediana (6 porciones):</span>
                     <strong th:text="'$' + ${#numbers.formatInteger(opcion.precioMediana, 0, 'COMMA')}"></strong>
                 </div>
                 <div class="precio-item">
-                    <span>Grande:</span>
+                    <span>Grande (8 porciones):</span>
                     <strong th:text="'$' + ${#numbers.formatInteger(opcion.precioGrande, 0, 'COMMA')}"></strong>
                 </div>
             </div>

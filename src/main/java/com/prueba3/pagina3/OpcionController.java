@@ -25,11 +25,7 @@ public class OpcionController {
     }
 
     @PostMapping("/agregar")
-    public String agregarAlCarrito(@RequestParam("opcionId") Long opcionId,
-                                   @RequestParam("tamano") String tamano,
-                                   @RequestParam("cantidad") int cantidad,
-                                   RedirectAttributes redirectAttributes) {
-        
+    public String agregarAlCarrito(@RequestParam Long opcionId, String tamano, int cantidad, RedirectAttributes redirectAttributes) {
         Opcion opcion = opcionService.obtenerPorId(opcionId);
         if (opcion != null && cantidad > 0) {
             carritoService.agregarItem(opcion, tamano, cantidad);
@@ -51,9 +47,7 @@ public class OpcionController {
     }
 
     @PostMapping("/carrito/eliminar")
-    public String eliminarDelCarrito(@RequestParam("itemId") Long itemId,
-                                     RedirectAttributes redirectAttributes) {
-        
+    public String eliminarDelCarrito(@RequestParam Long itemId, RedirectAttributes redirectAttributes) {
         if (carritoService.eliminarItem(itemId)) {
             redirectAttributes.addFlashAttribute("mensaje", "Item eliminado del carrito");
         } else {
@@ -105,12 +99,12 @@ public class OpcionController {
 
     @PostMapping("/registro")
     public String procesarRegistro(
-            @RequestParam("nombre") String nombre,
-            @RequestParam("apellidos") String apellidos,
-            @RequestParam("telefono") String telefono,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
+            @RequestParam String nombre,
+            @RequestParam String apellidos,
+            @RequestParam String telefono,
+            @RequestParam String direccion,
+            @RequestParam String email,
+            @RequestParam String password,
             HttpSession session,
             Model model) {
         

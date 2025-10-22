@@ -17,17 +17,17 @@ public class OpcionRepository {
     private List<Map<String, String>> usuariosRegistrados = new ArrayList<>();
 
     public OpcionRepository() {
-        // 10 pizzas precargadas con precios por tamaño
-        opciones.add(new Opcion(1L, "Hawaiana", 18000, 26000, 32000, "/img/hawaiana.png"));
-        opciones.add(new Opcion(2L, "Mexicana", 20000, 28000, 35000, "/img/mexicana.png"));
-        opciones.add(new Opcion(3L, "Napolitana", 17000, 25000, 31000, "/img/napolitana.png"));
-        opciones.add(new Opcion(4L, "Vegetariana", 19000, 27000, 34000, "/img/vegetariana.png"));
-        opciones.add(new Opcion(5L, "Cuatro quesos", 21000, 30000, 37000, "/img/cuatro_quesos.png"));
-        opciones.add(new Opcion(6L, "Pollo y champiñón", 20000, 29000, 36000, "/img/pollo_champinon.png"));
-        opciones.add(new Opcion(7L, "Jamón y queso", 18000, 26000, 32000, "/img/jamon_queso.png"));
-        opciones.add(new Opcion(8L, "Peperoni", 19000, 27000, 34000, "/img/peperoni.png"));
-        opciones.add(new Opcion(9L, "Mar y tierra", 23000, 32000, 40000, "/img/mar_tierra.png"));
-        opciones.add(new Opcion(10L, "BBQ especial", 22000, 31000, 39000, "/img/bbq_especial.png"));
+        // 10 pizzas precargadas con precios por tamaño y descripciones
+        opciones.add(new Opcion(1L, "Hawaiana", "La mezcla perfecta entre lo dulce y lo salado: jamón, piña y queso fundido en una combinación irresistible.", 18000, 26000, 32000, "/img/hawaiana.png"));
+        opciones.add(new Opcion(2L, "Mexicana", "Sabor con actitud: carne molida, maíz, jalapeños y toques picantes que te harán decir ¡olé!", 20000, 28000, 35000, "/img/mexicana.png"));
+        opciones.add(new Opcion(3L, "Napolitana", "Clásica y sencilla: salsa de tomate, mozzarella y especias italianas. Un sabor tradicional que nunca falla.", 17000, 25000, 31000, "/img/napolitana.png"));
+        opciones.add(new Opcion(4L, "Vegetariana", "Fresca y colorida: pimentón, cebolla, champiñones, tomate y maíz sobre una base de queso fundido.", 19000, 27000, 34000, "/img/vegetariana.png"));
+        opciones.add(new Opcion(5L, "Cuatro Quesos", "Una delicia cremosa con la fusión de mozzarella, cheddar, parmesano y azul. Pura pasión por el queso.", 21000, 30000, 37000, "/img/cuatro_quesos.png"));
+        opciones.add(new Opcion(6L, "Pollo y Champiñón", "Suave y deliciosa: pollo dorado, champiñones frescos y una capa cremosa de queso que lo une todo.", 20000, 29000, 36000, "/img/pollo_champinon.png"));
+        opciones.add(new Opcion(7L, "Jamón y Queso", "Simple, clásica y siempre deliciosa: jamón premium y abundante queso mozzarella derretido.", 18000, 26000, 32000, "/img/jamon_queso.png"));
+        opciones.add(new Opcion(8L, "Peperoni", "El favorito de todos: rodajas de peperoni perfectamente crujientes sobre una cama de queso fundido.", 19000, 27000, 34000, "/img/peperoni.png"));
+        opciones.add(new Opcion(9L, "Mar y Tierra", "Una combinación única de camarones, pollo y toques ahumados. Sabores intensos en cada bocado.", 23000, 32000, 40000, "/img/mar_tierra.png"));
+        opciones.add(new Opcion(10L, "BBQ Especial", "Carne jugosa, pollo y salsa BBQ artesanal, con queso fundido y un toque dulce que conquista.", 22000, 31000, 39000, "/img/bbq_especial.png"));
         
         // Lista de usuarios empieza VACÍA (se llena con el formulario)
     }
