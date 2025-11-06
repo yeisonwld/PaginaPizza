@@ -1,11 +1,25 @@
 package com.prueba3.pagina3;
 
+import jakarta.persistence.*;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Column;
+
+@Entity
 public class ItemCarrito {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "opcion_id", nullable = false)
     private Opcion opcion;
+    @Column(nullable = false)
     private String tamano;
+    @Column(nullable = false)
     private int cantidad;
+    @Column(nullable = false)
     private double precioUnitario;
+    @Column(nullable = false)
     private double subtotal;
 
     public ItemCarrito() {}
@@ -53,12 +67,12 @@ public class ItemCarrito {
     public double getSubtotal() { return subtotal; }
     public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
 
-    // Método auxiliar para actualizar el subtotal
+    // Metodo auxiliar para actualizar el subtotal
     private void actualizarSubtotal() {
         this.subtotal = this.precioUnitario * this.cantidad;
     }
 
-    // Método para obtener el nombre completo del item (pizza + tamaño)
+    // Metodo para obtener el nombre completo del item (pizza + tamaño)
     public String getNombreCompleto() {
         return opcion.getNombre() + " (" + tamano + ")";
     }

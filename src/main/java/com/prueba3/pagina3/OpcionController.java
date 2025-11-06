@@ -64,6 +64,16 @@ public class OpcionController {
         return "redirect:/carrito";
     }
 
+    @PostMapping("/carrito/actualizar")
+    public String actualizarCantidadCarrito(@RequestParam Long itemId, @RequestParam int cantidad, RedirectAttributes redirectAttributes) {
+        if (carritoService.actualizarCantidad(itemId, cantidad)) {
+            redirectAttributes.addFlashAttribute("mensaje", "Cantidad actualizada exitosamente");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Error al actualizar la cantidad");
+        }
+        return "redirect:/carrito";
+    }
+
     @PostMapping("/confirmar")
     public String confirmarPedido(Model model, RedirectAttributes redirectAttributes, HttpSession session) {
         // Verificar si el usuario está autenticado
@@ -114,7 +124,7 @@ public class OpcionController {
             return "registro";
         }
         
-        // AGREGAR a la lista vacía de OpcionRepository
+        // Persistir usuario en la base de datos
         opcionService.registrarUsuario(nombre, apellidos, telefono, direccion, email, password);
         
         // Guardar en sesión
