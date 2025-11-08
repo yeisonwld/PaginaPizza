@@ -1,9 +1,6 @@
 package com.prueba3.pagina3;
 
 import jakarta.persistence.*;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Column;
 
 @Entity
 public class ItemCarrito {
@@ -14,6 +11,8 @@ public class ItemCarrito {
     @JoinColumn(name = "opcion_id", nullable = false)
     private Opcion opcion;
     @Column(nullable = false)
+    private String nombre;
+    @Column(nullable = false)
     private String tamano;
     @Column(nullable = false)
     private int cantidad;
@@ -22,10 +21,13 @@ public class ItemCarrito {
     @Column(nullable = false)
     private double subtotal;
 
+    @Column(name = "usuario_email")
+    private String usuarioEmail;
+
     public ItemCarrito() {}
 
-    public ItemCarrito(Long id, Opcion opcion, String tamano, int cantidad) {
-        this.id = id;
+    public ItemCarrito(Opcion opcion, String tamano, int cantidad) {
+        this.nombre = opcion.getNombre();
         this.opcion = opcion;
         this.tamano = tamano;
         this.cantidad = cantidad;
@@ -40,6 +42,9 @@ public class ItemCarrito {
     public Opcion getOpcion() { return opcion; }
     public void setOpcion(Opcion opcion) { 
         this.opcion = opcion;
+        if (opcion != null) {
+            this.nombre = opcion.getNombre();
+        }
         actualizarSubtotal();
     }
 
@@ -66,6 +71,12 @@ public class ItemCarrito {
 
     public double getSubtotal() { return subtotal; }
     public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+
+    public String getUsuarioEmail() { return usuarioEmail; }
+    public void setUsuarioEmail(String usuarioEmail) { this.usuarioEmail = usuarioEmail; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
     // Metodo auxiliar para actualizar el subtotal
     private void actualizarSubtotal() {
