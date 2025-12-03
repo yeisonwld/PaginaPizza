@@ -1,9 +1,9 @@
-package com.prueba3.pagina3.infrastructure.adapter.in.web;
-
+package com.prueba3.pagina3;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
+public class Index {
 
 @Controller
 @RequestMapping("/index")
@@ -13,4 +13,6 @@ public class IndexController{
         return "index";
     }
     
+}
+
 }
